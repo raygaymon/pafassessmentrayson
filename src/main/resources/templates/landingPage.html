@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Search Our Accomodations</h1>
+    <h2 data-th-if="${empty != null}" data-th-text="${empty}"></h2>
+        <form data-th-action="@{/mybnb/searchListings}" method="GET" data-th-object="${search}">
+            <table>
+                    <tr>
+                        <td>
+                            <label for="country">Country:</label>
+                        </td>
+                        <td data-th-object="${countries}">
+                            <select name="country" id="country">
+                                <option data-th-each="country : ${countries}" data-th-text="${country}" data-th-value="${country}" data-th-field="${search.country}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div data-th-if="${#fields.hasErrors('country')}">
+                                <span data-th-errors="*{country}" data-th-errorClass="error"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="numberofperson">Number of person:</label> 
+                        </td>
+                        <td>
+                            <input type="number" name="numberofperson" id="numberofperson" data-th-field="*{numberOfPersons}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div data-th-if="${#fields.hasErrors('numberOfPersons')}">
+                                <span data-th-errors="*{numberOfPersons}" data-th-errorClass="error"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="priceRange">Price range: </label>
+                        </td>
+                        <td>
+                            <label for="min">Min: </label>
+                            <input type="number" step="0.1" name="minPrice" data-th-field="*{minPrice}">
+                            <label for="max">Max: </label>
+                            <input type="number" step="0.1" name="maxPrice" data-th-field="*{maxPrice}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div data-th-if="${#fields.hasErrors('minPrice')}">
+                                <span data-th-errors="*{minPrice}" data-th-errorClass="error"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div data-th-if="${#fields.hasErrors('maxPrice')}">
+                                <span data-th-errors="*{maxPrice}" data-th-errorClass="error"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            <button type="submit">Search</button> 
+        </form>
+</body>
+</html>

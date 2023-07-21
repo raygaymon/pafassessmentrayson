@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body data-th-object="${listing}">
+    <a href="/mybnb/searchList">Back</a>
+    <table >
+        <tr>
+            <td>Id: </td>
+            <td data-th-text="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Description: </td>
+            <td data-th-text="*{description}"></td>
+            <td >
+                <img data-th-src="*{imageURL}" style="height: 80px">
+            </td>
+        </tr>
+        <tr>
+            <td>Address: </td>
+            <td data-th-object="${listing.address}">
+                <div data-th-text="${listing.address.street}"></div>
+                <div data-th-text="${listing.address.market}"></div>
+                <div data-th-text="${listing.address.country}"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Price: </td>
+            <td data-th-text="*{price}"></td>
+        </tr>
+        <tr>
+            <td>Amenities: </td>
+            <td >
+                <div data-th-each="amenity : *{amenities}" data-th-text="${amenity}"></div>
+            </td>
+        </tr>
+    </table>
+    <h3>Booking</h3>
+    <h3 data-th-if="${error != null}" data-th-text="${error}"></h3>
+        <form data-th-object="${r}" method="POST" data-th-action="@{/mybnb/listing/book/{id}(id = ${listing.id})}">
+            <table>
+                <tr>
+                    <td>
+                        <label for="name">Name:</label>
+                    </td>
+                    <td>
+                        <input type="text" data-th-field="*{name}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="email">Email: </label>
+                    </td>
+                    <td>
+                        <input type="text" data-th-field="*{email}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="arrivalDate">Arrival: </label>
+                    </td>
+                    <td>
+                        <input type="date" name="arrivalDate" data-th-field="*{arrivalDate}" data-th-value="${{arrivalDate}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="Stay">Stay: </label>
+                    </td>
+                    <td>
+                        <input type="number" data-th-field="*{duration}">days
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">Book</button>
+        </form>
+    
+</body>
+</html>

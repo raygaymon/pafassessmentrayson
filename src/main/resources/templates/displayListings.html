@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body data-th-object="${search}">
+    <h1 data-th-text="'Listing for ' + ${search.country}"></h1>
+    <h2 data-th-if="${empty != null}" data-th-text="${empty}"></h2>
+    <a href="/mybnb/landingpage">Back</a>
+    <table data-th-if="${displayListings != null}">
+        <tr>
+            <td style="text-align: center;">Name</td>
+            <td style="text-align: center;">Price</td>
+            <td style="text-align: center;">Image</td>
+            <td></td>
+        </tr>
+        <tr data-th-each="listing : ${displayListings}">
+            <td data-th-text="${listing.name}"></td>
+            <td data-th-text="${listing.price}" style="padding:10px"></td>
+            <td><img data-th-src="${listing.imageURL}" style="height: 300px; width: auto"></td>
+            <td>
+                <a data-th-href="@{/mybnb/search/{name}(name = ${listing.name})}">Details</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
